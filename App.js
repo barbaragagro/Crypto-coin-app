@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native";
 import styled from "styled-components/native";
-import ArrowDropDownIcon from "./assets/downArrow.png";
+import { AntDesign } from "@expo/vector-icons";
 
 const SafeArea = styled(SafeAreaView)`
   flex: 1;
@@ -48,10 +48,25 @@ const CoinItem = ({
           </View>
           <WhiteText>{symbol.toUpperCase()}</WhiteText>
           <View>
-            <WhiteText>
-            <Image style={styles.downArrow} source={ArrowDropDownIcon} />
-              {parseFloat(market_cap_change_percentage_24h).toFixed(2)}%
-            </WhiteText>
+            {market_cap_change_percentage_24h < 0 ? (
+              <View style={styles.arrowsView}>
+                <View style={styles.arrowDown}>
+                  <AntDesign name="caretdown" size={15} color="red" />
+                </View>
+                <Text style={styles.redText}>
+                  {parseFloat(market_cap_change_percentage_24h).toFixed(2)}%
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.arrowsView}>
+                <View style={styles.arrowUp}>
+                  <AntDesign name="caretup" size={15} color="#13ba7b" />
+                </View>
+                <Text style={styles.greenText}>
+                  {parseFloat(market_cap_change_percentage_24h).toFixed(2)}%
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -134,7 +149,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    marginVertical: 15,
+    margin: 15,
   },
   coinItem: {
     flexDirection: "row",
@@ -158,14 +173,14 @@ const styles = StyleSheet.create({
   image: {
     width: 45,
     height: 45,
-    marginRight: 10,
+    marginRight: 12,
   },
   rankNumber: {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(97, 97, 97, 0.6)",
-    paddingHorizontal: 2,
-    borderRadius: 3,
+    paddingHorizontal: 4,
+    borderRadius: 5,
     marginHorizontal: 3,
   },
   coinName: {
@@ -175,9 +190,24 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 15,
   },
-  downArrow: {
-    height: 10,
-    width: 12,
-    
+  redText: {
+    color: "red",
+    padding: 2,
+  },
+  greenText: {
+    color: "#13ba7b",
+    padding: 2,
+  },
+  arrowsView: {
+    flexDirection: "row",
+    paddingHorizontal: 2,
+  },
+  arrowDown: {
+    paddingTop: 2,
+    paddingHorizontal: 2,
+  },
+  arrowUp: {
+    paddingTop: 3,
+    paddingHorizontal: 2,
   },
 });
