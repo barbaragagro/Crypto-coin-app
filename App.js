@@ -142,7 +142,7 @@ const HomeScreen = () => {
         <WhiteText style={styles.title}>Top Assets</WhiteText>
         {getCoinPrices()}
         <StatusBar style="light" />
-        {console.log(response)}
+        
       </View>
     </SafeArea>
   );
